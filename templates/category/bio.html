@@ -1,0 +1,60 @@
+
+{% extends 'base.html' %}
+
+{% block title %}PensionScheme | data{% endblock %}
+
+{% block body %}
+<style>
+    .col-lg-12 .elements{
+    max-height: 90vh;
+    overflow-y: auto;
+}
+</style>
+
+<div class="container">
+    {% with messages=get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+        {% for category,msg in messages %}
+        
+            <div class="alert alert-{{category}} alert-dismissible fade show  name" role="alert" >
+            <strong> {{msg}}</strong>
+            <button type="button" class="btn-close name1" data-bs-dismiss="alert" aria-label="close"></button>
+            </div>
+
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <a href="/category_pdf/bio" class="btn btn-outline-success" style="margin-top: 5px;">Download pdf</a>
+    <div class="row">
+        <div class="col-lg-12">
+            <p>KABARAK UNIVERSITY  RETIREMENT BENEFITS SCHEME</p>
+            <h6 style="text-align: center;">BIO SUMMARY</h6>
+            <div class="elements active" style="height: 80vh;">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>MEMBER NAME</th>
+                            <th>MEMBERSHIP NO</th>
+                            <th>DATE OF BIRTH</th>
+                            <th>DATE OF EMPLOYMENT</th>
+                            <th>JOINING DATE</th>
+                            <th>RETIREMENT DATE</th>
+                        </tr>
+                        {% for data in datas %}
+                        <tr>
+                            <td>{{data[2]}}</td>
+                            <td>{{data[1]}}</td>
+                            <td>{{data[23]}}</td>
+                            <td>{{data[24]}}</td>
+                            <td>{{data[25]}}</td>
+                            <td>{{data[26]}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block title %}PENSIONSCHEME | Home{% endblock %}
+
+{% block body %}
+<style>
+    .elements{
+        box-shadow: 2px 2px 10px black;
+    }
+</style>
+<div class="container">
+    {% with messages=get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+        {% for category,msg in messages %}
+        
+            <div class="alert alert-{{category}} alert-dismissible fade show  name" role="alert" >
+            <strong> {{msg}}</strong>
+            <button type="button" class="btn-close name1" data-bs-dismiss="alert" aria-label="close"></button>
+            </div>
+
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <a href="{{url_for('download_pdf')}}" class="btn btn-outline-success" style="margin-top: 5px;">Download pdf</a>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="elements">
+                <div class="image">
+                    <img src="{{url_for('static',filename='images/scheme.jpg')}}" height="200" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="elements">
+                <div class="responsive">
+                    <h3>PERSONAL DETAILS</h3>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>MEMBER NAME</th>
+                            <th>MEMBERSHIP NO</th>
+                            <th>DATE OF BIRTH</th>
+                            <th>DATE OF EMPLOYMENT</th>
+                            <th>JOINING DATE</th>
+                            <th>RETIREMENT DATE</th>
+                        </tr>
+                        <tr>
+                            <td>{{session['username']}}</td>
+                            <td>{{session['code']}}</td>
+                            <td>{{data[23]}}</td>
+                            <td>{{data[24]}}</td>
+                            <td>{{data[25]}}</td>
+                            <td>{{data[26]}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="elements">
+                <h4>This is to certify that you are a member of the </h4>
+                <p>KABARAK UNIVERSITY  RETIREMENT BENEFITS SCHEME</p>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <tr>
+                            <th>Description</th>
+                            <th>Shillings</th>
+                            <th>Employee</th>
+                            <th>Employer</th>
+                            <th>Total</th>
+                        </tr>
+                        <tr>
+                            <td>Opening balance @01.01.2022</td>
+                            <td>KSHS</td>
+                            <td>{{ (data[5]|int) // 30 }}</td>
+                            <td>{{ (data[12]|int) // 30 }}</td>
+                            <td>{{ ((data[5]|int) + (data[12]|int)) // 30 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Contributions remitted Year 2022 </td>
+                            <td>KSHS</td>
+                            <td>{{ (data[6]|int) // 30 }}</td>
+                            <td>{{ (data[13]|int) // 30 }}</td>
+                            <td>{{ ((data[6]|int) + (data[13]|int)) // 30 }}</td>
+                        </tr>
+                        <tr>
+                            <td>interest on opening balance</td>
+                            <td>KSHS</td>
+                            <td>{{ (data[8]|int) // 30 }}</td>
+                            <td>{{ (data[15]|int) // 30 }}</td>
+                            <td>{{ ((data[8]|int) + (data[15]|int)) // 30 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Interest on Contributions Year 2022</td>
+                            <td>KSHS</td>
+                            <td>{{ (data[9]|int) // 30 }}</td>
+                            <td>{{ (data[16]|int) // 30 }}</td>
+                            <td>{{ ((data[9]|int) + (data[16]|int)) // 30 }}</td>
+                        </tr>
+                        <tr style="color: brown;font-weight: bolder;">
+                            <td>Subtotal</td>
+                            <td>KSHS</td>
+                            <td>{{ ((data[5]|int) + (data[6]|int) + (data[8]|int) + (data[9]|int)) // 30 }}</td>
+                            <td>{{ ((data[12]|int) + (data[13]|int) + (data[15]|int) + (data[16]|int)) // 30 }}</td>
+                            <td>{{ ((data[5]|int) + (data[12]|int) + (data[6]|int) + (data[13]|int) + (data[8]|int) + (data[15]|int) + (data[9]|int) + (data[16]|int)) // 30 }}</td>
+                        </tr>
+                        <tr>
+                            <td>unremitted contributions</td>
+                            <td>KSHS</td>
+                            <td>0</td>
+                            <td>{{ (data[17]|int) // 30 }}</td>
+                            <td>{{ (data[17]|int) // 30 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Interest on unremitted contributions </td>
+                            <td>KSHS</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>NSSF TIER II</td>
+                            <td>KSHS</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Opening balance @01.01.2022</td>
+                            <td>KSHS</td>
+                            <td>{{ (data[5]|int) // 30 }}</td>
+                            <td>{{ (data[12]|int) // 30 }}</td>
+                            <td>{{ ((data[5]|int) + (data[12]|int)) // 30 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Contributions remitted Year 2022 </td>
+                            <td>KSHS</td>
+                            <td>{{ (data[6]|int) // 30 }}</td>
+                            <td>{{ (data[13]|int) // 30 }}</td>
+                            <td>{{ ((data[6]|int) + (data[13]|int)) // 30 }}</td>
+                        </tr>
+                        <tr>
+                            <td>interest on opening balance</td>
+                            <td>KSHS</td>
+                            <td>{{ (data[8]|int) // 30 }}</td>
+                            <td>{{ (data[15]|int) // 30 }}</td>
+                            <td>{{ ((data[8]|int) + (data[15]|int)) // 30 }}</td>
+                        </tr>
+                        <tr style="color: brown;font-weight: bolder;">
+                            <td>Total Balances @30.12.22</td>
+                            <td>KSHS</td>
+                            <td>{{ ((data[5]|int) + (data[6]|int) + (data[8]|int) + (data[9]|int) + (data[7]|int) + (data[8]|int) + (data[6]|int) + (data[5]|int)) // 30 }}</td>
+                            <td>{{ ((data[12]|int) + (data[13]|int) + (data[15]|int) + (data[16]|int) + (data[17]|int) + (data[11]|int) + (data[14]|int) + (data[15]|int) + (data[13]|int) + (data[12]|int)) // 30 }}</td>
+                            <td>{{ ((data[5]|int) + (data[12]|int) + (data[6]|int) + (data[13]|int) + (data[8]|int) + (data[15]|int) + (data[9]|int) + (data[16]|int) + (data[17]|int) + (data[11]|int) + (data[7]|int) + (data[14]|int) + (data[5]|int) + (data[12]|int) + (data[8]|int) + (data[15]|int)+ (data[6]|int) + (data[13]|int)) // 30 }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
