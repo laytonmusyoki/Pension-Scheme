@@ -6,11 +6,13 @@ app=Flask(__name__)
 app.secret_key='yvvrcyeryueyruehddsnjnjn'
 
 connection=pymysql.connect(
-    host='localhost',
-    user='root',
-    password='',
-    database='employee_data'
+    host='db4free.net',
+    user='pension',
+    password='pensionscheme',
+    database='pension'
 )
+
+
 
 @app.route('/',methods=['POST','GET'])
 def login():
@@ -39,6 +41,10 @@ def login():
                 return render_template('login.html',name=name,code=code)
         return render_template('login.html')
 
+
+
+
+
 @app.route('/home')
 def home():
     if 'username' and 'code' not in session:
@@ -57,6 +63,7 @@ def home():
     return render_template('home.html',data=data)
 
 
+
 @app.route('/admin')
 def admin():
     if 'username' and 'code' not in session:
@@ -69,7 +76,6 @@ def admin():
             data=cur.fetchall()
             return render_template('admin.html',datas=data)
         return "Not allowed to view this page"
-
 
 
 
@@ -106,6 +112,7 @@ def categories(category):
             if category=="Interest due to NIC opening balance":
                 return render_template('category/Interest due to NIC opening balance.html',datas=data)
         return "Not allowed"
+
 
 
 
