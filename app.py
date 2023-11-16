@@ -1,5 +1,5 @@
 from flask import Flask,redirect,render_template,session,request,flash,url_for,make_response
-from weasyprint import HTML
+# from weasyprint import HTML
 import pymysql
 app=Flask(__name__)
 
